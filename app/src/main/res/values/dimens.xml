@@ -10,5 +10,10 @@
     <dimen name="logoOuterWidth">15dp</dimen>
     <dimen name="logoOuterHeight">15dp</dimen>
 
-
+<!--Home Screen-->
+    <dimen name="img_cats_width">400dp</dimen>
+    <dimen name="home_top_btn_margin_top">70dp</dimen>
+    <dimen name="home_left_btn_margin_start">60dp</dimen>
+    <dimen name="home_right_btn_margin_start">95dp</dimen>
+    <dimen name="home_bottom_btn_margin_bottom">-30dp</dimen>
 </resources>

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">ChessApp</string>
+
+    <!--Home Screen-->
+    <string name="btn_chess_size">Size</string>
+    <string name="btn_moves">Moves</string>
+    <string name="btn_exit">Exit</string>
+    <string name="btn_start">Start!</string>
+    <string name="img_home_cats">Home Menu Cats</string>
+
+<!--    <string name=""></string>-->
+
+
 </resources>
