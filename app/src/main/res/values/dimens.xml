@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--Logo-->
+    <dimen name="logoInnerWidth">10dp</dimen>
+    <dimen name="logoInnerHeight">10dp</dimen>
+    <dimen name="logoInnerStrokeWidth">7dp</dimen>
+
+
+    <dimen name="logoOuterWidth">15dp</dimen>
+    <dimen name="logoOuterHeight">15dp</dimen>
+
+
+</resources>
