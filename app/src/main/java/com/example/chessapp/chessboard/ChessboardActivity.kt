@@ -14,19 +14,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chessapp.MainActivity
 import com.example.chessapp.R
+import com.example.chessapp.utils.PreferencesManager
 
 class ChessboardActivity : AppCompatActivity() {
 
     private val viewModel: ChessboardViewModel by viewModels { ChessboardViewModelFactory(application) }
     private lateinit var pathAdapter: PathAdapter
+    private lateinit var preferencesManager: PreferencesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chessboard)
 
-        // Retrieve data from the Intent
-        val boardSize = intent.getIntExtra("EXTRA_BOARD_SIZE", 8)
-        val moves = intent.getIntExtra("EXTRA_MOVES", 3)
+        // Initialize the PreferencesManager
+        preferencesManager = PreferencesManager(this)
+
+        // Retrieve data from shared preferences
+        val boardSize = preferencesManager.getBoardSize()
+        val moves = preferencesManager.getMoves()
 
         // Bind the TextView to show board size & moves
         val boardTextView: TextView = findViewById(R.id.boardTextView)

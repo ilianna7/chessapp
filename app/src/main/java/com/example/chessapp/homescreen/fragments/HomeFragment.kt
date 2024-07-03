@@ -55,11 +55,7 @@ class HomeFragment : Fragment() {
             val boardSize = sharedViewModel.boardSize.value ?: 0
             val moves = sharedViewModel.moves.value ?: 0
 
-            val intent = Intent(requireContext(), ChessboardActivity::class.java).apply {
-                putExtra("EXTRA_BOARD_SIZE", boardSize)
-                putExtra("EXTRA_MOVES", moves)
-            }
-
+            val intent = Intent(requireContext(), ChessboardActivity::class.java)
             startActivity(intent)
         }
 

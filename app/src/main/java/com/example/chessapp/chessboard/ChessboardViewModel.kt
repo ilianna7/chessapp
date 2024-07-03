@@ -1,20 +1,18 @@
 package com.example.chessapp.chessboard
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.chessapp.utils.PreferencesManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ChessboardViewModel(application: Application) : AndroidViewModel(application) {
-    private val sharedPreferences: SharedPreferences = application.getSharedPreferences("ChessAppPrefs", Context.MODE_PRIVATE)
+
+    private val preferencesManager: PreferencesManager = PreferencesManager(application.applicationContext)
 
     private val _boardSize = MutableLiveData<Int>()
     val boardSize: LiveData<Int> get() = _boardSize
@@ -56,12 +54,12 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
 
     fun setBoardSize(size: Int) {
         _boardSize.value = size
-        saveBoardSize(size)
+        preferencesManager.setBoardSize(size)
     }
 
     fun setMoves(moves: Int) {
         _moves.value = moves
-        saveMoves(moves)
+        preferencesManager.setMoves(moves)
     }
 
     fun onTileClicked(row: Int, col: Int) {
@@ -75,7 +73,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                     _invalidSelection.value = false
                     _previousStartPosition.value = _startPosition.value
                     _startPosition.value = tile
-                    saveStartPosition(tile)
+                    preferencesManager.setStartPosition(tile.first, tile.second)
                     clearPaths()  // Clear paths when start position changes
                 }
             }
@@ -86,7 +84,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                     _invalidSelection.value = false
                     _previousEndPosition.value = _endPosition.value
                     _endPosition.value = tile
-                    saveEndPosition(tile)
+                    preferencesManager.setEndPosition(tile.first, tile.second)
                     clearPaths()  // Clear paths when end position changes
                 }
             }
@@ -102,10 +100,10 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         val start = _startPosition.value ?: return
         val end = _endPosition.value ?: return
         val moves = _moves.value ?: return
-        val boardSize = _boardSize.value ?: return // Get the board size
+        val boardSize = _boardSize.value ?: return
 
         viewModelScope.launch {
-            val pathfinder = KnightPathfinder(boardSize) // Pass the boardSize to KnightPathfinder
+            val pathfinder = KnightPathfinder(boardSize)
             val resultPaths = withContext(Dispatchers.IO) {
                 pathfinder.findPaths(Position(start.first, start.second, boardSize), Position(end.first, end.second, boardSize), moves)
             }
@@ -114,63 +112,30 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                 _paths.value = emptyList()
             } else {
                 _paths.value = resultPaths
-                savePaths(resultPaths)
+                preferencesManager.setPaths(resultPaths)
             }
         }
     }
 
     fun clearPaths() {
         _paths.value = emptyList()
-        clearSavedPaths()
+        preferencesManager.clearDependentData()
         _clearPurplePaths.value = Unit  // Notify to clear purple tiles
     }
 
-    // Save methods
-    private fun saveBoardSize(size: Int) {
-        sharedPreferences.edit().putInt("board_size", size).apply()
-    }
-
-    private fun saveMoves(moves: Int) {
-        sharedPreferences.edit().putInt("moves", moves).apply()
-    }
-
-    private fun saveStartPosition(position: Pair<Int, Int>) {
-        sharedPreferences.edit().putInt("start_row", position.first).putInt("start_col", position.second).apply()
-    }
-
-    private fun saveEndPosition(position: Pair<Int, Int>) {
-        sharedPreferences.edit().putInt("end_row", position.first).putInt("end_col", position.second).apply()
-    }
-
-    private fun savePaths(paths: List<List<Position>>) {
-        val gson = Gson()
-        val pathsJson = gson.toJson(paths)
-        sharedPreferences.edit().putString("paths", pathsJson).apply()
-    }
-
-    private fun clearSavedPaths() {
-        sharedPreferences.edit().remove("paths").apply()
-    }
-
-    // Load methods
     fun loadSavedData() {
-        _boardSize.value = sharedPreferences.getInt("board_size", 8)
-        _moves.value = sharedPreferences.getInt("moves", 3)
-        val startRow = sharedPreferences.getInt("start_row", -1)
-        val startCol = sharedPreferences.getInt("start_col", -1)
+        _boardSize.value = preferencesManager.getBoardSize()
+        _moves.value = preferencesManager.getMoves()
+        val startRow = preferencesManager.getStartRow()
+        val startCol = preferencesManager.getStartCol()
         if (startRow != -1 && startCol != -1) {
             _startPosition.value = Pair(startRow, startCol)
         }
-        val endRow = sharedPreferences.getInt("end_row", -1)
-        val endCol = sharedPreferences.getInt("end_col", -1)
+        val endRow = preferencesManager.getEndRow()
+        val endCol = preferencesManager.getEndCol()
         if (endRow != -1 && endCol != -1) {
             _endPosition.value = Pair(endRow, endCol)
         }
-        val pathsJson = sharedPreferences.getString("paths", null)
-        if (pathsJson != null) {
-            val gson = Gson()
-            val type = object : TypeToken<List<List<Position>>>() {}.type
-            _paths.value = gson.fromJson(pathsJson, type)
-        }
+        _paths.value = preferencesManager.getPaths()
     }
 }
