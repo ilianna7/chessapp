@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ChessApp</string>
     <string name="title_activity_chessboard">ChessBoard</string>
-
+    <string name="splashscreen_logo">Black kitty splashscreen logo</string>
 
     <!--Home Screen-->
     <string name="btn_chess_size">Size</string>
@@ -10,19 +10,33 @@
     <string name="btn_start">Start!</string>
     <string name="img_home_cats">Home Menu Cats</string>
 
-
     <!--Chessboard Screen-->
     <string name="btn_back_to_main">Back to Main</string>
+    <string name="find_path">Find Path</string>
+    <string name="end_position">End Position</string>
+    <string name="start_position">Start Position</string>
+    <string name="show_invalid_selection_message">Start and end positions cannot be the same.</string>
+    <string name="set_both_positions">Please set both start and end positions.</string>
 
+
+<!--    Input Screens-->
     <string name="board_size_text">Board Size: %1$d</string> <!-- Placeholder for board size -->
     <string name="invalid_number">Please enter a valid number</string>
     <string name="size_out_of_range">Board size must be between 6 and 16</string>
 
-
     <string name="moves_text">Moves: %1$d</string> <!-- Placeholder for moves -->
     <string name="moves_of_range">Moves must be between 1 and 10</string>
 
-<!--    <string name=""></string>-->
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_confirm">Confirm</string>
+
+    <string name="board_size">Board Size</string>
+    <string name="enter_board_size">Enter Board Size:</string>
+    <string name="moves">Moves</string>
+    <string name="enter_moves">Enter Moves:</string>
+
+
+    <!--    <string name=""></string>-->
 
 
 </resources>

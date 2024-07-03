@@ -11,15 +11,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/input_screen_layout_padding">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:maxWidth="320dp"
-            android:padding="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:maxWidth="@dimen/input_screen_layout_max_size"
+            android:padding="@dimen/input_screen_layout_padding"
+            android:layout_marginTop="@dimen/input_screen_layout_margin_top"
+            android:layout_marginBottom="@dimen/input_screen_layout_margin_bottom"
             android:background="@drawable/rounded_border"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,46 +31,46 @@
                 android:id="@+id/textViewSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Enter Moves:`}"
+                android:text="@{@string/enter_moves}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:padding="8dp"
-                android:textSize="18sp"/>
+                android:padding="@dimen/input_screen_textview_padding"
+                android:textSize="@dimen/default_text_size"/>
 
             <EditText
                 android:id="@+id/editTextSize"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
-                android:hint="@{`Moves`}"
+                android:hint="@{@string/moves}"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintWidth_default="wrap"
-                app:layout_constraintWidth_max="200dp"
-                android:padding="8dp"/>
+                app:layout_constraintWidth_max="@dimen/input_screen_edittext_max_width"
+                android:padding="@dimen/input_screen_edittext_padding"/>
 
             <Button
                 android:id="@+id/btn_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Confirm`}"
+                android:text="@{@string/btn_confirm}"
                 app:layout_constraintTop_toBottomOf="@+id/editTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
-                android:layout_marginTop="16dp"
-                android:padding="8dp"/>
+                android:layout_marginTop="@dimen/input_screen_btn_margin_top"
+                android:padding="@dimen/input_screen_btn_padding"/>
 
             <Button
                 android:id="@+id/btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Cancel`}"
+                android:text="@{@string/btn_cancel}"
                 app:layout_constraintTop_toBottomOf="@+id/editTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_confirm"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:padding="8dp"/>
+                android:layout_marginStart="@dimen/input_screen_btn_margin_start"
+                android:layout_marginTop="@dimen/input_screen_btn_margin_top"
+                android:padding="@dimen/input_screen_btn_padding"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

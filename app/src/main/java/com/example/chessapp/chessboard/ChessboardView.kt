@@ -94,6 +94,6 @@ class ChessboardView @JvmOverloads constructor(
     private fun showInvalidSelectionMessage() {
         // Show a message to the user that the start and end positions cannot be the same
         // For example, using a Toast:
-        Toast.makeText(context, "Start and end positions cannot be the same", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.show_invalid_selection_message, Toast.LENGTH_SHORT).show()
     }
 }

@@ -84,7 +84,7 @@ class ChessboardActivity : AppCompatActivity() {
             val end = viewModel.endPosition.value
 
             if (start == null || end == null) {
-                Toast.makeText(this, "Please set both start and end positions.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.set_both_positions, Toast.LENGTH_SHORT).show()
             } else {
                 // Logic to find the path would go here. For now, we'll just show a success message.
                 Toast.makeText(this, "Path found successfully!", Toast.LENGTH_SHORT).show()
@@ -94,6 +94,6 @@ class ChessboardActivity : AppCompatActivity() {
 
     private fun showInvalidSelectionMessage() {
         // Show a message to the user that the start and end positions cannot be the same
-        Toast.makeText(this, "Start and end positions cannot be the same", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.show_invalid_selection_message, Toast.LENGTH_SHORT).show()
     }
 }

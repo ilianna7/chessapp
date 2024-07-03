@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:padding="8dp"
-            android:textSize="18sp"/>
+            android:padding="@dimen/home_text_view_padding"
+            android:textSize="@dimen/default_text_size"/>
 
 
         <TextView
@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/textViewBoardSize"
             app:layout_constraintStart_toStartOf="parent"
-            android:padding="8dp"
-            android:textSize="18sp"/>
+            android:padding="@dimen/home_text_view_padding"
+            android:textSize="@dimen/default_text_size"/>
 
         <ImageView
             android:id="@+id/img_cats"

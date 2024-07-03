@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="zero">0dp</dimen>
+    <dimen name="default_text_size">18sp</dimen>
+
 <!--Logo-->
     <dimen name="logoInnerWidth">10dp</dimen>
     <dimen name="logoInnerHeight">10dp</dimen>
     <dimen name="logoInnerStrokeWidth">7dp</dimen>
-
-
-    <dimen name="logoOuterWidth">15dp</dimen>
-    <dimen name="logoOuterHeight">15dp</dimen>
+    <dimen name="splashscreen_logo_padding">40dp</dimen>
 
 <!--Home Screen-->
     <dimen name="img_cats_width">400dp</dimen>
@@ -16,4 +16,22 @@
     <dimen name="home_left_btn_margin_start">60dp</dimen>
     <dimen name="home_right_btn_margin_start">95dp</dimen>
     <dimen name="home_bottom_btn_margin_bottom">-30dp</dimen>
+    <dimen name="home_text_view_padding">8dp</dimen>
+
+<!--    Chessboard-->
+    <dimen name="chessboard_layout_padding">16dp</dimen>
+    <dimen name="btnFindPath_margin_top">8dp</dimen>
+    <dimen name="btnBackToMain_margin_top">16dp</dimen>
+
+<!--    Input Screens-->
+    <dimen name="input_screen_layout_padding">16dp</dimen>
+    <dimen name="input_screen_layout_max_size">320dp</dimen>
+    <dimen name="input_screen_layout_margin_top">24dp</dimen>
+    <dimen name="input_screen_layout_margin_bottom">24dp</dimen>
+    <dimen name="input_screen_edittext_max_width">200dp</dimen>
+    <dimen name="input_screen_edittext_padding">8dp</dimen>
+    <dimen name="input_screen_textview_padding">8dp</dimen>
+    <dimen name="input_screen_btn_margin_top">16dp</dimen>
+    <dimen name="input_screen_btn_margin_start">16dp</dimen>
+    <dimen name="input_screen_btn_padding">8dp</dimen>
 </resources>

@@ -2,14 +2,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    android:padding="@dimen/chessboard_layout_padding">
 
     <TextView
         android:id="@+id/boardTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@{`Board Size: ${viewModel.boardSize.value ?: 8}`}"
-        android:textSize="18sp"
+        android:textSize="@dimen/default_text_size"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -27,30 +27,30 @@
             android:id="@+id/radioStartPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Position"
+            android:text="@string/start_position"
             android:checked="true" />
 
         <RadioButton
             android:id="@+id/radioEndPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="End Position" />
+            android:text="@string/end_position" />
     </RadioGroup>
 
     <Button
         android:id="@+id/btnFindPath"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find Path"
+        android:text="@string/find_path"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="@dimen/btnFindPath_margin_top" />
 
     <com.example.chessapp.chessboard.ChessboardView
         android:id="@+id/chessboard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
         app:layout_constraintTop_toBottomOf="@+id/btnFindPath"
         app:layout_constraintBottom_toTopOf="@+id/btn_back_to_main"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,6 +66,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="@dimen/btnFindPath_margin_top" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

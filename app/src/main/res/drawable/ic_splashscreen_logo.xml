@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_launcher_logo"
+    android:insetLeft="@dimen/splashscreen_logo_padding"
+    android:insetRight="@dimen/splashscreen_logo_padding"
+    android:insetTop="@dimen/splashscreen_logo_padding"
+    android:insetBottom="@dimen/splashscreen_logo_padding"/>
