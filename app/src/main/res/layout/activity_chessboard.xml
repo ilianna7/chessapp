@@ -4,105 +4,117 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/chessboard_layout_padding">
 
-    <TextView
-        android:id="@+id/boardTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/default_text_size"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <TextView
-        android:id="@+id/movesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/default_text_size"
-        app:layout_constraintTop_toBottomOf="@id/boardTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/movesTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radioStartPosition"
-            style="@style/CustomRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_position"
-            android:checked="true" />
-
-        <RadioButton
-            android:id="@+id/radioEndPosition"
-            style="@style/CustomRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/end_position" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/noPathsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_solution_message"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/radioGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/chessboard"
-        android:layout_marginTop="@dimen/textview_margin_top"
-        android:layout_marginBottom="@dimen/textview_margin_bottom"
-        android:textSize="@dimen/secondary_text_size" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pathsRecyclerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/radioGroup"
-        app:layout_constraintBottom_toTopOf="@id/chessboard"
-        android:requiresFadingEdge="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintDimensionRatio="1:0.2"
-        android:layout_marginTop="@dimen/recycler_margin_top"
-        android:orientation="horizontal" />
+        android:layout_height="match_parent">
 
-    <com.example.chessapp.chessboard.ChessboardView
-        android:id="@+id/chessboard"
-        android:layout_width="@dimen/zero"
-        android:layout_height="@dimen/zero"
-        app:layout_constraintTop_toBottomOf="@id/pathsRecyclerView"
-        app:layout_constraintBottom_toTopOf="@id/btn_back_to_main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintDimensionRatio="1:1" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_back_to_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_back_to_main"
-        app:layout_constraintTop_toBottomOf="@+id/chessboard"
-        app:layout_constraintEnd_toStartOf="@id/btnFindPath"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="@dimen/btnFindPath_margin_top" />
+            <TextView
+                android:id="@+id/boardTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/default_text_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnFindPath"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/find_path"
-        app:layout_constraintTop_toBottomOf="@+id/chessboard"
-        app:layout_constraintStart_toEndOf="@id/btn_back_to_main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="@dimen/btnFindPath_margin_top" />
+            <TextView
+                android:id="@+id/movesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/default_text_size"
+                app:layout_constraintTop_toBottomOf="@id/boardTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/movesTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioStartPosition"
+                    style="@style/CustomRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_position"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioEndPosition"
+                    style="@style/CustomRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/end_position" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/noPathsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_solution_message"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/chessboard"
+                android:layout_marginTop="@dimen/textview_margin_top"
+                android:layout_marginBottom="@dimen/textview_margin_bottom"
+                android:textSize="@dimen/secondary_text_size" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pathsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup"
+                app:layout_constraintBottom_toTopOf="@id/chessboard"
+                android:requiresFadingEdge="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintDimensionRatio="1:0.2"
+                android:layout_marginTop="@dimen/recycler_margin_top"
+                android:orientation="horizontal" />
+
+            <com.example.chessapp.chessboard.ChessboardView
+                android:id="@+id/chessboard"
+                android:layout_width="@dimen/zero"
+                android:layout_height="@dimen/zero"
+                app:layout_constraintTop_toBottomOf="@id/pathsRecyclerView"
+                app:layout_constraintBottom_toTopOf="@id/btn_back_to_main"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintDimensionRatio="1:1" />
+
+            <Button
+                android:id="@+id/btn_back_to_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_back_to_main"
+                app:layout_constraintTop_toBottomOf="@+id/chessboard"
+                app:layout_constraintEnd_toStartOf="@id/btnFindPath"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/btnFindPath_margin_top" />
+
+            <Button
+                android:id="@+id/btnFindPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/find_path"
+                app:layout_constraintTop_toBottomOf="@+id/chessboard"
+                app:layout_constraintStart_toEndOf="@id/btn_back_to_main"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/btnFindPath_margin_top" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

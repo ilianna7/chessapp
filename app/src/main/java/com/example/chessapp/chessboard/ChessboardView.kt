@@ -128,4 +128,11 @@ class ChessboardView @JvmOverloads constructor(
         // Show a message to the user that the start and end positions cannot be the same
         Toast.makeText(context, R.string.show_invalid_selection_message, Toast.LENGTH_SHORT).show()
     }
+
+    fun resetBoard() {
+        for ((position, button) in buttons) {
+            val (row, col) = position
+            button.setBackgroundColor(getTileColor(row, col))
+        }
+    }
 }

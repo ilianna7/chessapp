@@ -146,4 +146,12 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         }
         _paths.value = preferencesManager.getPaths()
     }
+
+    fun clearAllData() {
+        _startPosition.value = null
+        _endPosition.value = null
+        _paths.value = emptyList()
+        preferencesManager.clearDependentData()
+        preferencesManager.clearPathData()
+    }
 }

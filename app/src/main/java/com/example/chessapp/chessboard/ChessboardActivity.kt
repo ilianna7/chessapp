@@ -8,13 +8,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.chessapp.MainActivity
 import com.example.chessapp.R
 import com.example.chessapp.utils.PreferencesManager
+
 
 class ChessboardActivity : AppCompatActivity() {
 
@@ -97,6 +98,13 @@ class ChessboardActivity : AppCompatActivity() {
                 DividerItemDecoration.HORIZONTAL
             )
         )
+
+        val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.clearAllData()
+            chessboardView.resetBoard()
+            swipeRefreshLayout.isRefreshing = false
+        }
 
         // Observe the startPosition LiveData
         viewModel.startPosition.observe(this) { position ->
