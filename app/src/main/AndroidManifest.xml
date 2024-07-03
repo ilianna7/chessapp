@@ -24,7 +24,9 @@
         </activity>
         <activity
             android:name=".chessboard.ChessboardActivity"
-            android:exported="false" />
+            android:label="@string/title_activity_chessboard"
+            android:theme="@style/Theme.ChessApp" />
+
 
     </application>
 

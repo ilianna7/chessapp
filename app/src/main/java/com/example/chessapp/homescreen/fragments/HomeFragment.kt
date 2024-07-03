@@ -1,5 +1,6 @@
 package com.example.chessapp.homescreen.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.example.chessapp.homescreen.viewmodels.HomeViewModel
 import com.example.chessapp.MainActivity
 import com.example.chessapp.R
 import com.example.chessapp.SharedViewModel
+import com.example.chessapp.chessboard.ChessboardActivity
 import com.example.chessapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -50,9 +52,21 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.btnStart.setOnClickListener{
+        binding.btnStart.setOnClickListener {
+            // Extract data from SharedViewModel
+            val boardSize = sharedViewModel.boardSize.value ?: 0
+            val moves = sharedViewModel.moves.value ?: 0
 
+            // Create an Intent to start ChessboardActivity
+            val intent = Intent(requireContext(), ChessboardActivity::class.java).apply {
+                putExtra("EXTRA_BOARD_SIZE", boardSize)
+                putExtra("EXTRA_MOVES", moves)
+            }
+
+            // Start ChessboardActivity
+            startActivity(intent)
         }
+
 
         return binding.root
     }

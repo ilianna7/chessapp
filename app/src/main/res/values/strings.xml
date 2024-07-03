@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ChessApp</string>
+    <string name="title_activity_chessboard">ChessBoard</string>
+
 
     <!--Home Screen-->
     <string name="btn_chess_size">Size</string>

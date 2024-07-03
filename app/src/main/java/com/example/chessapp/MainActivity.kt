@@ -13,14 +13,38 @@ class MainActivity : AppCompatActivity() {
     // Get the HomeViewModel instance
     val homeViewModel: HomeViewModel by viewModels()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(3000)
-        installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        // Install the splash screen
+        val splashScreen = installSplashScreen()
+
+        // Inflate the layout
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (savedInstanceState == null) {
+            // This is the first creation of the activity, apply the splash screen delay
+            splashScreen.setKeepOnScreenCondition {
+                // Keep the splash screen visible
+                true
+            }
+
+            // Set up a delay
+            val delayMillis = 1000L
+            val handler = android.os.Handler(mainLooper)
+            handler.postDelayed({
+                splashScreen.setKeepOnScreenCondition { false } // Dismiss the splash screen
+                setUpNavHostFragment() // Continue with setting up the NavHostFragment
+            }, delayMillis)
+        } else {
+            // If there's a saved instance state, skip the splash screen delay
+            splashScreen.setKeepOnScreenCondition { false } // Immediately dismiss the splash screen
+            setUpNavHostFragment() // Continue with setting up the NavHostFragment
+        }
+    }
+
+    private fun setUpNavHostFragment() {
         // Set up the NavHostFragment and NavController
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
