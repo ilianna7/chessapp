@@ -104,4 +104,10 @@ class ChessboardViewModel : ViewModel() {
         _invalidSelection.value = false
         _paths.value = emptyList()
     }
+
+    fun clearPaths() {
+        _paths.value = emptyList()
+    }
 }
+
+

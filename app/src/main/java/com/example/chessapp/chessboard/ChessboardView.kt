@@ -41,7 +41,6 @@ class ChessboardView @JvmOverloads constructor(
         }
         viewModel.invalidSelection.observeForever { isInvalid ->
             if (isInvalid) {
-                // Show an error message or handle invalid selection case
                 showInvalidSelectionMessage()
             }
         }
@@ -82,7 +81,7 @@ class ChessboardView @JvmOverloads constructor(
         }
     }
 
-    private fun updateTileColor(position: Pair<Int, Int>, colorResId: Int) {
+    fun updateTileColor(position: Pair<Int, Int>, colorResId: Int) {
         buttons[position]?.setBackgroundColor(ContextCompat.getColor(context, colorResId))
     }
 
@@ -91,9 +90,29 @@ class ChessboardView @JvmOverloads constructor(
         buttons[position]?.setBackgroundColor(getTileColor(row, col))
     }
 
+    fun displayPath(path: List<Position>) {
+        path.forEachIndexed { index, pos ->
+            val color = when (index) {
+                0 -> R.color.blue    // Start position
+                path.size - 1 -> R.color.yellow  // End position
+                else -> R.color.purple  // Path positions
+            }
+            updateTileColor(Pair(pos.row, pos.col), color)
+        }
+    }
+
+    fun clearPurplePath() {
+        // Restore purple path tiles to their original colors
+        buttons.forEach { (position, button) ->
+            val (row, col) = position
+            if (button.backgroundTintList?.defaultColor == ContextCompat.getColor(context, R.color.purple)) {
+                button.setBackgroundColor(getTileColor(row, col))
+            }
+        }
+    }
+
     private fun showInvalidSelectionMessage() {
         // Show a message to the user that the start and end positions cannot be the same
-        // For example, using a Toast:
         Toast.makeText(context, R.string.show_invalid_selection_message, Toast.LENGTH_SHORT).show()
     }
 }

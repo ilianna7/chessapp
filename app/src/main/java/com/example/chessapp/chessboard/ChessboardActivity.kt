@@ -9,12 +9,17 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.chessapp.MainActivity
 import com.example.chessapp.R
+
 
 class ChessboardActivity : AppCompatActivity() {
 
     private val viewModel: ChessboardViewModel by viewModels()
+    private lateinit var pathAdapter: PathAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,11 +61,27 @@ class ChessboardActivity : AppCompatActivity() {
             }
         }
 
+        // Initialize RecyclerView for paths
+        val pathsRecyclerView: RecyclerView = findViewById(R.id.pathsRecyclerView)
+        val noPathsTextView: TextView = findViewById(R.id.noPathsTextView)
+
+        pathAdapter = PathAdapter(emptyList())
+        pathsRecyclerView.adapter = pathAdapter
+        pathsRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // Add item decoration for horizontal RecyclerView
+        pathsRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                pathsRecyclerView.context,
+                DividerItemDecoration.HORIZONTAL
+            )
+        )
+
         // Observe the startPosition LiveData
         viewModel.startPosition.observe(this, Observer { position ->
             position?.let {
                 // Update UI for start position
-                // Example: Highlight the start position tile
+                chessboardView.updateTileColor(it, R.color.blue)
             }
         })
 
@@ -68,7 +89,7 @@ class ChessboardActivity : AppCompatActivity() {
         viewModel.endPosition.observe(this, Observer { position ->
             position?.let {
                 // Update UI for end position
-                // Example: Highlight the end position tile
+                chessboardView.updateTileColor(it, R.color.yellow)
             }
         })
 
@@ -82,36 +103,34 @@ class ChessboardActivity : AppCompatActivity() {
         // Observe the paths LiveData
         viewModel.paths.observe(this, Observer { paths ->
             if (paths.isNotEmpty()) {
-                // Handle the paths, e.g., display them to the user
+                noPathsTextView.visibility = TextView.GONE
+                pathsRecyclerView.visibility = RecyclerView.VISIBLE
+                pathAdapter.updatePaths(paths)
                 Toast.makeText(this, "${paths.size} paths found", Toast.LENGTH_SHORT).show()
             } else {
-                showNoSolutionMessage()
-            }
-        })
-
-        viewModel.paths.observe(this, Observer { paths ->
-            if (paths.isNotEmpty()) {
-                // Handle the paths, e.g., display them to the user
-                Toast.makeText(this, "${paths.size} paths found", Toast.LENGTH_SHORT).show()
-            } else {
-                showNoSolutionMessage()
+                noPathsTextView.visibility = TextView.VISIBLE
+                pathsRecyclerView.visibility = RecyclerView.GONE
             }
         })
 
         // Set up the Find Path button
         val findPathButton: Button = findViewById(R.id.btnFindPath)
         findPathButton.setOnClickListener {
+            // Clear previous purple paths
+            chessboardView.clearPurplePath()
             viewModel.findPaths()
+        }
+
+        // Handle path item clicks
+        pathAdapter.setOnItemClickListener { path ->
+            // Clear the purple path on the chessboard and display the clicked path
+            chessboardView.clearPurplePath()
+            chessboardView.displayPath(path)
         }
     }
 
     private fun showInvalidSelectionMessage() {
         // Show a message to the user that the start and end positions cannot be the same
         Toast.makeText(this, R.string.show_invalid_selection_message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showNoSolutionMessage() {
-        // Show a message to the user that no solutions were found
-        Toast.makeText(this, R.string.no_solution_message, Toast.LENGTH_SHORT).show()
     }
 }
