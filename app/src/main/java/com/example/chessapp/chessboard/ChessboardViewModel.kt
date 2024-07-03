@@ -85,11 +85,12 @@ class ChessboardViewModel : ViewModel() {
         val start = _startPosition.value ?: return
         val end = _endPosition.value ?: return
         val moves = _moves.value ?: return
+        val boardSize = _boardSize.value ?: return // Get the board size
 
         viewModelScope.launch {
-            val pathfinder = KnightPathfinder()
+            val pathfinder = KnightPathfinder(boardSize) // Pass the boardSize to KnightPathfinder
             val resultPaths = withContext(Dispatchers.IO) {
-                pathfinder.findPaths(Position(start.first, start.second), Position(end.first, end.second), moves)
+                pathfinder.findPaths(Position(start.first, start.second, boardSize), Position(end.first, end.second, boardSize), moves)
             }
             if (resultPaths.isEmpty()) {
                 showNoSolutionMessage()

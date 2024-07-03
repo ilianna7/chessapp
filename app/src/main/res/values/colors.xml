@@ -18,4 +18,6 @@
     <color name="maroon">#800700</color>
     <color name="bright_red">#aa0900</color>
     <color name="guardsman_red">#d40c00</color>
+
+    <color name="radio_button_color">@drawable/radio_button_color</color>
 </resources>

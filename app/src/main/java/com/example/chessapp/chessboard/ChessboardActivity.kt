@@ -80,18 +80,23 @@ class ChessboardActivity : AppCompatActivity() {
         // Observe the startPosition LiveData
         viewModel.startPosition.observe(this, Observer { position ->
             position?.let {
+                // Convert Pair<Int, Int> to Position
+                val positionObj = Position(it.first, it.second, boardSize)
                 // Update UI for start position
-                chessboardView.updateTileColor(it, R.color.blue)
+                chessboardView.updateTileColor(positionObj, R.color.blue)
             }
         })
 
         // Observe the endPosition LiveData
         viewModel.endPosition.observe(this, Observer { position ->
             position?.let {
+                // Convert Pair<Int, Int> to Position
+                val positionObj = Position(it.first, it.second, boardSize)
                 // Update UI for end position
-                chessboardView.updateTileColor(it, R.color.yellow)
+                chessboardView.updateTileColor(positionObj, R.color.yellow)
             }
         })
+
 
         // Observe the invalidSelection LiveData
         viewModel.invalidSelection.observe(this, Observer { isInvalid ->

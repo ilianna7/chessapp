@@ -32,6 +32,7 @@
 
         <RadioButton
             android:id="@+id/radioStartPosition"
+            style="@style/CustomRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_position"
@@ -39,6 +40,7 @@
 
         <RadioButton
             android:id="@+id/radioEndPosition"
+            style="@style/CustomRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/end_position" />
@@ -54,8 +56,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/chessboard"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="@dimen/textview_margin_top"
+        android:layout_marginBottom="@dimen/textview_margin_bottom"
         android:textSize="@dimen/secondary_text_size" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -68,13 +70,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintDimensionRatio="1:0.2"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/recycler_margin_top"
         android:orientation="horizontal" />
 
     <com.example.chessapp.chessboard.ChessboardView
         android:id="@+id/chessboard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
         app:layout_constraintTop_toBottomOf="@id/pathsRecyclerView"
         app:layout_constraintBottom_toTopOf="@id/btn_back_to_main"
         app:layout_constraintEnd_toEndOf="parent"

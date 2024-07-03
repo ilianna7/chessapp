@@ -29,16 +29,16 @@ class ChessboardView @JvmOverloads constructor(
             setupBoard(size)
         }
         viewModel.startPosition.observeForever { position ->
-            position?.let { updateTileColor(it, R.color.blue) }
+            position?.let { updateTileColor(Position(it.first, it.second, viewModel.boardSize.value ?: 8), R.color.blue) }
         }
         viewModel.endPosition.observeForever { position ->
-            position?.let { updateTileColor(it, R.color.yellow) }
+            position?.let { updateTileColor(Position(it.first, it.second, viewModel.boardSize.value ?: 8), R.color.yellow) }
         }
         viewModel.previousStartPosition.observeForever { position ->
-            position?.let { resetTileColor(it) }
+            position?.let { resetTileColor(Position(it.first, it.second, viewModel.boardSize.value ?: 8)) }
         }
         viewModel.previousEndPosition.observeForever { position ->
-            position?.let { resetTileColor(it) }
+            position?.let { resetTileColor(Position(it.first, it.second, viewModel.boardSize.value ?: 8)) }
         }
         viewModel.invalidSelection.observeForever { isInvalid ->
             if (isInvalid) {
@@ -82,13 +82,13 @@ class ChessboardView @JvmOverloads constructor(
         }
     }
 
-    fun updateTileColor(position: Pair<Int, Int>, colorResId: Int) {
-        buttons[position]?.setBackgroundColor(ContextCompat.getColor(context, colorResId))
+    fun updateTileColor(position: Position, colorResId: Int) {
+        buttons[Pair(position.row, position.col)]?.setBackgroundColor(ContextCompat.getColor(context, colorResId))
     }
 
-    private fun resetTileColor(position: Pair<Int, Int>) {
+    private fun resetTileColor(position: Position) {
         val (row, col) = position
-        buttons[position]?.setBackgroundColor(getTileColor(row, col))
+        buttons[Pair(row, col)]?.setBackgroundColor(getTileColor(row, col))
     }
 
     fun displayPath(path: List<Position>) {
@@ -98,7 +98,7 @@ class ChessboardView @JvmOverloads constructor(
                 path.size - 1 -> R.color.yellow  // End position
                 else -> R.color.purple  // Path positions
             }
-            updateTileColor(Pair(pos.row, pos.col), color)
+            updateTileColor(pos, color)
         }
     }
 
@@ -109,7 +109,8 @@ class ChessboardView @JvmOverloads constructor(
             val (row, col) = position
             if (button.backgroundColor() == purpleColor) {
                 // Do not change the colors of start and end positions
-                if (position != viewModel?.startPosition?.value && position != viewModel?.endPosition?.value) {
+                if (position != viewModel?.startPosition?.value?.let { Pair(it.first, it.second) }
+                    && position != viewModel?.endPosition?.value?.let { Pair(it.first, it.second) }) {
                     button.setBackgroundColor(getTileColor(row, col))
                 }
             }
@@ -119,7 +120,6 @@ class ChessboardView @JvmOverloads constructor(
     private fun androidx.appcompat.widget.AppCompatButton.backgroundColor(): Int {
         return (background as? ColorDrawable)?.color ?: 0
     }
-
 
     private fun showInvalidSelectionMessage() {
         // Show a message to the user that the start and end positions cannot be the same

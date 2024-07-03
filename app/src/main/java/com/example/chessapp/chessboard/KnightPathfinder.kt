@@ -1,14 +1,15 @@
 package com.example.chessapp.chessboard
 
-data class Position(val row: Int, val col: Int) {
+data class Position(val row: Int, val col: Int, val boardSize: Int) {
     fun isValidPosition(): Boolean {
-        return row in 0 until 8 && col in 0 until 8
+        return row in 0 until boardSize && col in 0 until boardSize
     }
 }
 
-class KnightPathfinder {
 
-    // Update this method to accept Position objects
+class KnightPathfinder(private val boardSize: Int) {
+
+    // Update the findPaths method to use boardSize
     fun findPaths(start: Position, end: Position, maxMoves: Int): List<List<Position>> {
         val paths = mutableListOf<List<Position>>()
         val visited = mutableSetOf<Position>()
@@ -25,7 +26,7 @@ class KnightPathfinder {
             for (move in KnightMoves) {
                 val newRow = currentPosition.row + move.first
                 val newCol = currentPosition.col + move.second
-                val newPosition = Position(newRow, newCol)
+                val newPosition = Position(newRow, newCol, boardSize)
 
                 if (newPosition.isValidPosition() && newPosition !in visited) {
                     dfs(newPosition, currentPath + newPosition, remainingMoves - 1)
