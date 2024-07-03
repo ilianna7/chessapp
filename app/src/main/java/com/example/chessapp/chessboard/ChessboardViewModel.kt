@@ -72,6 +72,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                     _previousStartPosition.value = _startPosition.value
                     _startPosition.value = tile
                     saveStartPosition(tile)
+                    clearPaths()  // Clear paths when start position changes
                 }
             }
             Mode.END_POSITION -> {
@@ -82,6 +83,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                     _previousEndPosition.value = _endPosition.value
                     _endPosition.value = tile
                     saveEndPosition(tile)
+                    clearPaths()  // Clear paths when end position changes
                 }
             }
             null -> TODO()
@@ -155,7 +157,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
             _startPosition.value = Pair(startRow, startCol)
         }
         val endRow = sharedPreferences.getInt("end_row", -1)
-        val endCol = sharedPreferences.getInt("end_row", -1)
+        val endCol = sharedPreferences.getInt("end_col", -1)
         if (endRow != -1 && endCol != -1) {
             _endPosition.value = Pair(endRow, endCol)
         }
