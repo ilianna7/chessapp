@@ -45,6 +45,9 @@ class ChessboardView @JvmOverloads constructor(
                 showInvalidSelectionMessage()
             }
         }
+        viewModel.clearPurplePaths.observeForever {
+            clearPurplePath()  // Clear purple paths when triggered
+        }
     }
 
     private fun setupBoard(size: Int) {

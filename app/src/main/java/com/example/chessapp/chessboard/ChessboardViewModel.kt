@@ -46,6 +46,9 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
     private val _paths = MutableLiveData<List<List<Position>>>()
     val paths: LiveData<List<List<Position>>> get() = _paths
 
+    private val _clearPurplePaths = MutableLiveData<Unit>()
+    val clearPurplePaths: LiveData<Unit> get() = _clearPurplePaths
+
     init {
         _currentMode.value = Mode.START_POSITION
     }
@@ -86,7 +89,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                     clearPaths()  // Clear paths when end position changes
                 }
             }
-            null -> TODO()
+            null -> throw IllegalStateException("Mode should never be null")
         }
     }
 
@@ -118,6 +121,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
     fun clearPaths() {
         _paths.value = emptyList()
         clearSavedPaths()
+        _clearPurplePaths.value = Unit  // Notify to clear purple tiles
     }
 
     // Save methods
@@ -169,3 +173,4 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 }
+
