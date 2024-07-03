@@ -32,6 +32,15 @@ class ChessboardActivity : AppCompatActivity() {
         // Retrieve data from shared preferences
         val boardSize = preferencesManager.getBoardSize()
         val moves = preferencesManager.getMoves()
+        val startRow = preferencesManager.getStartRow()
+        val startCol = preferencesManager.getStartCol()
+        val endRow = preferencesManager.getEndRow()
+        val endCol = preferencesManager.getEndCol()
+
+        // Ensure the data is valid
+        if (boardSize <= 0 || moves < 0) {
+            throw IllegalStateException("Invalid board size or moves value")
+        }
 
         // Bind the TextView to show board size & moves
         val boardTextView: TextView = findViewById(R.id.boardTextView)
@@ -43,6 +52,14 @@ class ChessboardActivity : AppCompatActivity() {
         // Set up the ViewModel with the data
         viewModel.setBoardSize(boardSize)
         viewModel.setMoves(moves)
+
+        // Set start and end positions if available
+        if (startRow != -1 && startCol != -1) {
+            viewModel.setStartPosition(startRow, startCol)
+        }
+        if (endRow != -1 && endCol != -1) {
+            viewModel.setEndPosition(endRow, endCol)
+        }
 
         // Initialize the chessboard view
         val chessboardView: ChessboardView = findViewById(R.id.chessboard)
@@ -137,6 +154,9 @@ class ChessboardActivity : AppCompatActivity() {
 
         // Load saved data
         viewModel.loadSavedData()
+
+        // Clear dependent data when needed (for example, on starting a new game)
+        // preferencesManager.clearDependentData() // Uncomment this line when you need to clear dependent data
     }
 
     private fun showInvalidSelectionMessage() {

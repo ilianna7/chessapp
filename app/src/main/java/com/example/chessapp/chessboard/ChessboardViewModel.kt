@@ -62,6 +62,16 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         preferencesManager.setMoves(moves)
     }
 
+    fun setStartPosition(row: Int, col: Int) {
+        preferencesManager.setStartPosition(row, col)
+        _startPosition.value = Pair(row, col)
+    }
+
+    fun setEndPosition(row: Int, col: Int) {
+        _endPosition.value = Pair(row, col)
+        preferencesManager.setEndPosition(row, col)
+    }
+
     fun onTileClicked(row: Int, col: Int) {
         val tile = Pair(row, col)
         _selectedTile.value = tile
@@ -72,8 +82,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                 } else {
                     _invalidSelection.value = false
                     _previousStartPosition.value = _startPosition.value
-                    _startPosition.value = tile
-                    preferencesManager.setStartPosition(tile.first, tile.second)
+                    setStartPosition(row, col)
                     clearPaths()  // Clear paths when start position changes
                 }
             }
@@ -83,8 +92,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                 } else {
                     _invalidSelection.value = false
                     _previousEndPosition.value = _endPosition.value
-                    _endPosition.value = tile
-                    preferencesManager.setEndPosition(tile.first, tile.second)
+                    setEndPosition(row, col)
                     clearPaths()  // Clear paths when end position changes
                 }
             }
@@ -119,7 +127,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
 
     fun clearPaths() {
         _paths.value = emptyList()
-        preferencesManager.clearDependentData()
+        preferencesManager.clearPathData()
         _clearPurplePaths.value = Unit  // Notify to clear purple tiles
     }
 
@@ -127,6 +135,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         _boardSize.value = preferencesManager.getBoardSize()
         _moves.value = preferencesManager.getMoves()
         val startRow = preferencesManager.getStartRow()
+        println("HAHAHA *" + preferencesManager.getStartRow())
         val startCol = preferencesManager.getStartCol()
         if (startRow != -1 && startCol != -1) {
             _startPosition.value = Pair(startRow, startCol)
