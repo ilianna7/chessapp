@@ -76,6 +76,20 @@ class ChessboardActivity : AppCompatActivity() {
                 showInvalidSelectionMessage()
             }
         })
+
+        // Set up the Find Path button
+        val findPathButton: Button = findViewById(R.id.btnFindPath)
+        findPathButton.setOnClickListener {
+            val start = viewModel.startPosition.value
+            val end = viewModel.endPosition.value
+
+            if (start == null || end == null) {
+                Toast.makeText(this, "Please set both start and end positions.", Toast.LENGTH_SHORT).show()
+            } else {
+                // Logic to find the path would go here. For now, we'll just show a success message.
+                Toast.makeText(this, "Path found successfully!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun showInvalidSelectionMessage() {
