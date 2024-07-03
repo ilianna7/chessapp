@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -91,7 +90,6 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
 
     fun setMode(mode: Mode) {
         _currentMode.value = mode
-        saveCurrentMode(mode)
     }
 
     fun findPaths() {
@@ -106,17 +104,13 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
                 pathfinder.findPaths(Position(start.first, start.second, boardSize), Position(end.first, end.second, boardSize), moves)
             }
             if (resultPaths.isEmpty()) {
-                showNoSolutionMessage()
+                _invalidSelection.value = false
+                _paths.value = emptyList()
             } else {
                 _paths.value = resultPaths
                 savePaths(resultPaths)
             }
         }
-    }
-
-    private fun showNoSolutionMessage() {
-        _invalidSelection.value = false
-        _paths.value = emptyList()
     }
 
     fun clearPaths() {
@@ -141,10 +135,6 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         sharedPreferences.edit().putInt("end_row", position.first).putInt("end_col", position.second).apply()
     }
 
-    private fun saveCurrentMode(mode: Mode) {
-        sharedPreferences.edit().putString("current_mode", mode.name).apply()
-    }
-
     private fun savePaths(paths: List<List<Position>>) {
         val gson = Gson()
         val pathsJson = gson.toJson(paths)
@@ -165,11 +155,10 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
             _startPosition.value = Pair(startRow, startCol)
         }
         val endRow = sharedPreferences.getInt("end_row", -1)
-        val endCol = sharedPreferences.getInt("end_col", -1)
+        val endCol = sharedPreferences.getInt("end_row", -1)
         if (endRow != -1 && endCol != -1) {
             _endPosition.value = Pair(endRow, endCol)
         }
-        _currentMode.value = Mode.valueOf(sharedPreferences.getString("current_mode", Mode.START_POSITION.name) ?: Mode.START_POSITION.name)
         val pathsJson = sharedPreferences.getString("paths", null)
         if (pathsJson != null) {
             val gson = Gson()
