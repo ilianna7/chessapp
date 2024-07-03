@@ -25,15 +25,24 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         updateBoardSizeTextView(8)
+        updateMovesTextView(3)
 
         sharedViewModel.boardSize.observe(viewLifecycleOwner) { size ->
             updateBoardSizeTextView(size)
+        }
+        sharedViewModel.moves.observe(viewLifecycleOwner) { moves ->
+            updateMovesTextView(moves)
         }
 
         // Navigate to InputSizeFragment
         binding.btnInputSize.setOnClickListener {
             viewModel.onSizeInputButton(findNavController())
         }
+        // Navigate to InputMovesFragment
+        binding.btnMoves.setOnClickListener {
+            viewModel.onSizeMovesButton(findNavController())
+        }
+
 
         // Exit the application
         binding.btnExit.setOnClickListener {
@@ -46,12 +55,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun updateBoardSizeTextView(size: Int){
+        binding.textViewBoardSize.text = getString(R.string.board_size_text, size)
     }
 
-    fun updateBoardSizeTextView(size: Int){
-        binding.textViewBoardSize.text = getString(R.string.board_size_text, size)
+    private fun updateMovesTextView(size: Int){
+        binding.textViewMoves.text = getString(R.string.moves_text, size)
     }
 }

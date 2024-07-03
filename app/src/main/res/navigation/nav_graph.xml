@@ -13,6 +13,11 @@
             app:destination="@id/inputSizeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_inputMovesFragment"
+            app:destination="@id/inputMovesFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -21,6 +26,16 @@
         tools:layout="@layout/fragment_input_size">
         <action
             android:id="@+id/action_inputSizeFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/inputMovesFragment"
+        android:name="com.example.chessapp.homescreen.fragments.InputMovesFragment"
+        tools:layout="@layout/fragment_input_size">
+        <action
+            android:id="@+id/action_inputMovesFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />

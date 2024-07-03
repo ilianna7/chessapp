@@ -11,6 +11,10 @@ class HomeViewModel : ViewModel() {
         navController.navigate(R.id.action_homeFragment_to_inputSizeFragment)
     }
 
+    fun onSizeMovesButton(navController: NavController) {
+        navController.navigate(R.id.action_homeFragment_to_inputMovesFragment)
+    }
+
     fun onExitButtonClicked(activity: MainActivity) {
         activity.exitApplication()
     }

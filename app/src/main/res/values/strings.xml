@@ -16,6 +16,10 @@
     <string name="invalid_number">Please enter a valid number</string>
     <string name="size_out_of_range">Board size must be between 6 and 16</string>
 
+
+    <string name="moves_text">Moves: %1$d</string> <!-- Placeholder for moves -->
+    <string name="moves_of_range">Moves must be between 1 and 10</string>
+
 <!--    <string name=""></string>-->
 
 
