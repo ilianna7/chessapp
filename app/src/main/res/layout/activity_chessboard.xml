@@ -8,9 +8,16 @@
         android:id="@+id/boardTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{`Board Size: ${viewModel.boardSize.value ?: 8}`}"
         android:textSize="@dimen/default_text_size"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/movesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size"
+        app:layout_constraintTop_toBottomOf="@id/boardTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -18,7 +25,7 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/boardTextView"
+        app:layout_constraintTop_toBottomOf="@id/movesTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal">

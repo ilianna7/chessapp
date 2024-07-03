@@ -24,9 +24,12 @@ class ChessboardActivity : AppCompatActivity() {
         val boardSize = intent.getIntExtra("EXTRA_BOARD_SIZE", 8)
         val moves = intent.getIntExtra("EXTRA_MOVES", 3)
 
-        // Bind the TextView to show board size
+        // Bind the TextView to show board size & moves
         val boardTextView: TextView = findViewById(R.id.boardTextView)
         boardTextView.text = getString(R.string.board_size_text, boardSize)
+
+        val movesTextView: TextView = findViewById(R.id.movesTextView)
+        movesTextView.text = getString(R.string.moves_text, moves)
 
         // Set up the ViewModel with the data
         viewModel.setBoardSize(boardSize)
@@ -72,28 +75,43 @@ class ChessboardActivity : AppCompatActivity() {
         // Observe the invalidSelection LiveData
         viewModel.invalidSelection.observe(this, Observer { isInvalid ->
             if (isInvalid) {
-                // Show an error message or handle invalid selection case
                 showInvalidSelectionMessage()
+            }
+        })
+
+        // Observe the paths LiveData
+        viewModel.paths.observe(this, Observer { paths ->
+            if (paths.isNotEmpty()) {
+                // Handle the paths, e.g., display them to the user
+                Toast.makeText(this, "${paths.size} paths found", Toast.LENGTH_SHORT).show()
+            } else {
+                showNoSolutionMessage()
+            }
+        })
+
+        viewModel.paths.observe(this, Observer { paths ->
+            if (paths.isNotEmpty()) {
+                // Handle the paths, e.g., display them to the user
+                Toast.makeText(this, "${paths.size} paths found", Toast.LENGTH_SHORT).show()
+            } else {
+                showNoSolutionMessage()
             }
         })
 
         // Set up the Find Path button
         val findPathButton: Button = findViewById(R.id.btnFindPath)
         findPathButton.setOnClickListener {
-            val start = viewModel.startPosition.value
-            val end = viewModel.endPosition.value
-
-            if (start == null || end == null) {
-                Toast.makeText(this, R.string.set_both_positions, Toast.LENGTH_SHORT).show()
-            } else {
-                // Logic to find the path would go here. For now, we'll just show a success message.
-                Toast.makeText(this, "Path found successfully!", Toast.LENGTH_SHORT).show()
-            }
+            viewModel.findPaths()
         }
     }
 
     private fun showInvalidSelectionMessage() {
         // Show a message to the user that the start and end positions cannot be the same
         Toast.makeText(this, R.string.show_invalid_selection_message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showNoSolutionMessage() {
+        // Show a message to the user that no solutions were found
+        Toast.makeText(this, R.string.no_solution_message, Toast.LENGTH_SHORT).show()
     }
 }
