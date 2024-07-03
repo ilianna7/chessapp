@@ -112,16 +112,16 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
 
         viewModelScope.launch {
             val pathfinder = KnightPathfinder(boardSize)
-            val resultPaths = withContext(Dispatchers.IO) {
+            var resultPaths = withContext(Dispatchers.IO) {
                 pathfinder.findPaths(Position(start.first, start.second, boardSize), Position(end.first, end.second, boardSize), moves)
             }
             if (resultPaths.isEmpty()) {
                 _invalidSelection.value = false
-                _paths.value = emptyList()
-            } else {
-                _paths.value = resultPaths
-                preferencesManager.setPaths(resultPaths)
+                resultPaths = listOf(listOf(Position(-1, -1, boardSize)))
             }
+            _paths.value = resultPaths
+            preferencesManager.setPaths(resultPaths)
+
         }
     }
 
@@ -135,7 +135,6 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         _boardSize.value = preferencesManager.getBoardSize()
         _moves.value = preferencesManager.getMoves()
         val startRow = preferencesManager.getStartRow()
-        println("HAHAHA *" + preferencesManager.getStartRow())
         val startCol = preferencesManager.getStartCol()
         if (startRow != -1 && startCol != -1) {
             _startPosition.value = Pair(startRow, startCol)

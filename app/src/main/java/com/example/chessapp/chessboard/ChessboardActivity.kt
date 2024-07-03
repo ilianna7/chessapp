@@ -127,13 +127,18 @@ class ChessboardActivity : AppCompatActivity() {
 
         // Observe the paths LiveData
         viewModel.paths.observe(this) { paths ->
-            if (paths.isNotEmpty()) {
+            if(paths.isEmpty()){
+                pathsRecyclerView.visibility = RecyclerView.GONE
+                noPathsTextView.visibility = TextView.GONE
+
+            } else if(paths[0][0].col == -1 && paths[0][0].row == -1){
+                pathsRecyclerView.visibility = RecyclerView.GONE
+                noPathsTextView.visibility = TextView.VISIBLE
+
+            } else {
                 noPathsTextView.visibility = TextView.GONE
                 pathsRecyclerView.visibility = RecyclerView.VISIBLE
                 pathAdapter.updatePaths(paths)
-            } else {
-                noPathsTextView.visibility = TextView.VISIBLE
-                pathsRecyclerView.visibility = RecyclerView.GONE
             }
         }
 
