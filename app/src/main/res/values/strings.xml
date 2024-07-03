@@ -12,6 +12,10 @@
     <!--Chessboard Screen-->
     <string name="btn_back_to_main">Back to Main</string>
 
+    <string name="board_size_text">Board Size: %1$d</string> <!-- Placeholder for board size -->
+    <string name="invalid_number">Please enter a valid number</string>
+    <string name="size_out_of_range">Board size must be between 6 and 16</string>
+
 <!--    <string name=""></string>-->
 
 

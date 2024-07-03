@@ -5,12 +5,32 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.chessapp.HomeViewModel" />
+            type="com.example.chessapp.homescreen.viewmodels.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewBoardSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:padding="8dp"
+            android:textSize="18sp"/>
+
+
+        <TextView
+            android:id="@+id/textViewMoves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Moves: 9`}"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBoardSize"
+            app:layout_constraintStart_toStartOf="parent"
+            android:padding="8dp"
+            android:textSize="18sp"/>
 
         <ImageView
             android:id="@+id/img_cats"
@@ -26,14 +46,14 @@
             app:srcCompat="@drawable/ic_home_cats"/>
 
         <Button
-            android:id="@+id/btn_chess_size"
+            android:id="@+id/btnInputSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/btn_chess_size}"
             android:layout_marginStart="@dimen/home_left_btn_margin_start"
             android:translationY ="@dimen/home_top_btn_margin_top"
             app:layout_constraintBottom_toTopOf="@+id/img_cats"
-            app:layout_constraintStart_toStartOf="@+id/img_cats" />
+            app:layout_constraintStart_toStartOf="@+id/img_cats"/>
 
         <Button
             android:id="@+id/btn_moves"
@@ -43,7 +63,7 @@
             android:layout_marginStart="@dimen/home_right_btn_margin_start"
             android:translationY ="@dimen/home_top_btn_margin_top"
             app:layout_constraintBottom_toTopOf="@+id/img_cats"
-            app:layout_constraintStart_toEndOf="@+id/btn_chess_size" />
+            app:layout_constraintStart_toEndOf="@+id/btnInputSize" />
 
         <Button
             android:id="@+id/btn_exit"
@@ -53,8 +73,7 @@
             android:layout_marginStart="@dimen/home_left_btn_margin_start"
             android:translationY ="@dimen/home_bottom_btn_margin_bottom"
             app:layout_constraintStart_toStartOf="@+id/img_cats"
-            app:layout_constraintTop_toBottomOf="@+id/img_cats"
-            android:onClick="@{() -> viewModel.onExitClicked()}"/>
+            app:layout_constraintTop_toBottomOf="@+id/img_cats"/>
 
         <Button
             android:id="@+id/btn_start"
