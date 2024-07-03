@@ -24,8 +24,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        updateBoardSizeTextView(8)
-        updateMovesTextView(3)
 
         sharedViewModel.boardSize.observe(viewLifecycleOwner) { size ->
             updateBoardSizeTextView(size)
@@ -38,11 +36,11 @@ class HomeFragment : Fragment() {
         binding.btnInputSize.setOnClickListener {
             viewModel.onSizeInputButton(findNavController())
         }
+
         // Navigate to InputMovesFragment
         binding.btnMoves.setOnClickListener {
             viewModel.onSizeMovesButton(findNavController())
         }
-
 
         // Exit the application
         binding.btnExit.setOnClickListener {
@@ -50,6 +48,10 @@ class HomeFragment : Fragment() {
             (activity as? MainActivity)?.let {
                 viewModel.onExitButtonClicked(it)
             }
+        }
+
+        binding.btnStart.setOnClickListener{
+
         }
 
         return binding.root
