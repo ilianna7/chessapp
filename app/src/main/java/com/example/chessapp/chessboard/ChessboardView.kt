@@ -1,6 +1,7 @@
 package com.example.chessapp.chessboard
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.widget.GridLayout
 import android.widget.Toast
@@ -102,14 +103,23 @@ class ChessboardView @JvmOverloads constructor(
     }
 
     fun clearPurplePath() {
-        // Restore purple path tiles to their original colors
+        val purpleColor = ContextCompat.getColor(context, R.color.purple)
+        // Restore purple path tiles to their original colors, preserving the start and end positions
         buttons.forEach { (position, button) ->
             val (row, col) = position
-            if (button.backgroundTintList?.defaultColor == ContextCompat.getColor(context, R.color.purple)) {
-                button.setBackgroundColor(getTileColor(row, col))
+            if (button.backgroundColor() == purpleColor) {
+                // Do not change the colors of start and end positions
+                if (position != viewModel?.startPosition?.value && position != viewModel?.endPosition?.value) {
+                    button.setBackgroundColor(getTileColor(row, col))
+                }
             }
         }
     }
+
+    private fun androidx.appcompat.widget.AppCompatButton.backgroundColor(): Int {
+        return (background as? ColorDrawable)?.color ?: 0
+    }
+
 
     private fun showInvalidSelectionMessage() {
         // Show a message to the user that the start and end positions cannot be the same
