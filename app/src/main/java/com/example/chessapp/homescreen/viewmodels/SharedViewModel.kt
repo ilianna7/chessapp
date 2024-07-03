@@ -12,6 +12,11 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         private const val PREFS_NAME = "ChessAppPrefs"
         private const val KEY_BOARD_SIZE = "board_size"
         private const val KEY_MOVES = "moves"
+        private const val KEY_START_ROW = "start_row"
+        private const val KEY_START_COL = "start_col"
+        private const val KEY_END_ROW = "end_row"
+        private const val KEY_END_COL = "end_col"
+        private const val KEY_PATHS = "paths"
     }
 
     private val _boardSize = MutableLiveData<Int>()
@@ -26,11 +31,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     fun updateBoardSize(size: Int) {
         _boardSize.value = size
+        clearDependentData()
         savePreferences()
     }
 
     fun updateMoves(moves: Int) {
         _moves.value = moves
+        clearDependentData()
         savePreferences()
     }
 
@@ -49,5 +56,18 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         _boardSize.value = prefs.getInt(KEY_BOARD_SIZE, 8)  // Default to 8
         _moves.value = prefs.getInt(KEY_MOVES, 3)  // Default to 3
+    }
+
+    private fun clearDependentData() {
+        val context = getApplication<Application>().applicationContext
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        with(prefs.edit()) {
+            remove(KEY_START_ROW)
+            remove(KEY_START_COL)
+            remove(KEY_END_ROW)
+            remove(KEY_END_COL)
+            remove(KEY_PATHS)
+            apply()
+        }
     }
 }

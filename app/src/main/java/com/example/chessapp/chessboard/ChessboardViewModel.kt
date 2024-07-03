@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ChessboardViewModel(application: Application) : AndroidViewModel(application) {
-    private val sharedPreferences: SharedPreferences = application.getSharedPreferences("chess_prefs", Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = application.getSharedPreferences("ChessAppPrefs", Context.MODE_PRIVATE)
 
     private val _boardSize = MutableLiveData<Int>()
     val boardSize: LiveData<Int> get() = _boardSize
@@ -51,6 +51,7 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
 
     init {
         _currentMode.value = Mode.START_POSITION
+        loadSavedData()
     }
 
     fun setBoardSize(size: Int) {
@@ -173,4 +174,3 @@ class ChessboardViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 }
-

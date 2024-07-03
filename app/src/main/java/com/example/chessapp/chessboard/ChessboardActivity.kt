@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chessapp.MainActivity
 import com.example.chessapp.R
 
-
 class ChessboardActivity : AppCompatActivity() {
 
     private val viewModel: ChessboardViewModel by viewModels { ChessboardViewModelFactory(application) }
