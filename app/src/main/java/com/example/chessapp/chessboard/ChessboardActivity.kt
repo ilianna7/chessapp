@@ -18,7 +18,7 @@ import com.example.chessapp.R
 
 class ChessboardActivity : AppCompatActivity() {
 
-    private val viewModel: ChessboardViewModel by viewModels()
+    private val viewModel: ChessboardViewModel by viewModels { ChessboardViewModelFactory(application) }
     private lateinit var pathAdapter: PathAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,35 +78,34 @@ class ChessboardActivity : AppCompatActivity() {
         )
 
         // Observe the startPosition LiveData
-        viewModel.startPosition.observe(this, Observer { position ->
+        viewModel.startPosition.observe(this) { position ->
             position?.let {
                 // Convert Pair<Int, Int> to Position
                 val positionObj = Position(it.first, it.second, boardSize)
                 // Update UI for start position
                 chessboardView.updateTileColor(positionObj, R.color.blue)
             }
-        })
+        }
 
         // Observe the endPosition LiveData
-        viewModel.endPosition.observe(this, Observer { position ->
+        viewModel.endPosition.observe(this) { position ->
             position?.let {
                 // Convert Pair<Int, Int> to Position
                 val positionObj = Position(it.first, it.second, boardSize)
                 // Update UI for end position
                 chessboardView.updateTileColor(positionObj, R.color.yellow)
             }
-        })
-
+        }
 
         // Observe the invalidSelection LiveData
-        viewModel.invalidSelection.observe(this, Observer { isInvalid ->
+        viewModel.invalidSelection.observe(this) { isInvalid ->
             if (isInvalid) {
                 showInvalidSelectionMessage()
             }
-        })
+        }
 
         // Observe the paths LiveData
-        viewModel.paths.observe(this, Observer { paths ->
+        viewModel.paths.observe(this) { paths ->
             if (paths.isNotEmpty()) {
                 noPathsTextView.visibility = TextView.GONE
                 pathsRecyclerView.visibility = RecyclerView.VISIBLE
@@ -115,7 +114,7 @@ class ChessboardActivity : AppCompatActivity() {
                 noPathsTextView.visibility = TextView.VISIBLE
                 pathsRecyclerView.visibility = RecyclerView.GONE
             }
-        })
+        }
 
         // Set up the Find Path button
         val findPathButton: Button = findViewById(R.id.btnFindPath)
@@ -131,6 +130,9 @@ class ChessboardActivity : AppCompatActivity() {
             chessboardView.clearPurplePath()
             chessboardView.displayPath(path)
         }
+
+        // Load saved data
+        viewModel.loadSavedData()
     }
 
     private fun showInvalidSelectionMessage() {

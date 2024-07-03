@@ -59,6 +59,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
     implementation("androidx.fragment:fragment-ktx:1.7.0")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     //Fragment Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
