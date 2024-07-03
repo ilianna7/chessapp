@@ -8,6 +8,10 @@
     <string name="btn_start">Start!</string>
     <string name="img_home_cats">Home Menu Cats</string>
 
+
+    <!--Chessboard Screen-->
+    <string name="btn_back_to_main">Back to Main</string>
+
 <!--    <string name=""></string>-->
 
 

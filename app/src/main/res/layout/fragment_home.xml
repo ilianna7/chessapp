@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.chessapp.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_cats"
+            android:layout_width="@dimen/img_cats_width"
+            android:layout_height="wrap_content"
+            android:contentDescription="@{@string/img_home_cats}"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_home_cats"/>
+
+        <Button
+            android:id="@+id/btn_chess_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/btn_chess_size}"
+            android:layout_marginStart="@dimen/home_left_btn_margin_start"
+            android:translationY ="@dimen/home_top_btn_margin_top"
+            app:layout_constraintBottom_toTopOf="@+id/img_cats"
+            app:layout_constraintStart_toStartOf="@+id/img_cats" />
+
+        <Button
+            android:id="@+id/btn_moves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/btn_moves}"
+            android:layout_marginStart="@dimen/home_right_btn_margin_start"
+            android:translationY ="@dimen/home_top_btn_margin_top"
+            app:layout_constraintBottom_toTopOf="@+id/img_cats"
+            app:layout_constraintStart_toEndOf="@+id/btn_chess_size" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/btn_exit}"
+            android:layout_marginStart="@dimen/home_left_btn_margin_start"
+            android:translationY ="@dimen/home_bottom_btn_margin_bottom"
+            app:layout_constraintStart_toStartOf="@+id/img_cats"
+            app:layout_constraintTop_toBottomOf="@+id/img_cats"
+            android:onClick="@{() -> viewModel.onExitClicked()}"/>
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/btn_start}"
+            android:layout_marginStart="@dimen/home_right_btn_margin_start"
+            android:translationY ="@dimen/home_bottom_btn_margin_bottom"
+            app:layout_constraintStart_toEndOf="@+id/btn_exit"
+            app:layout_constraintTop_toBottomOf="@+id/img_cats" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
