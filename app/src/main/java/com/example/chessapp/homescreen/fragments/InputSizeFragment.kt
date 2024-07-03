@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chessapp.homescreen.viewmodels.InputSizeViewModel
 import com.example.chessapp.R
-import com.example.chessapp.SharedViewModel
+import com.example.chessapp.homescreen.viewmodels.SharedViewModel
 import com.example.chessapp.databinding.FragmentInputSizeBinding
 
 class InputSizeFragment : Fragment() {
@@ -50,7 +50,6 @@ class InputSizeFragment : Fragment() {
                 Toast.makeText(requireContext(), R.string.size_out_of_range, Toast.LENGTH_SHORT).show()
             }
         }
-
 
         return binding.root
     }

@@ -111,7 +111,6 @@ class ChessboardActivity : AppCompatActivity() {
                 noPathsTextView.visibility = TextView.GONE
                 pathsRecyclerView.visibility = RecyclerView.VISIBLE
                 pathAdapter.updatePaths(paths)
-                Toast.makeText(this, "${paths.size} paths found", Toast.LENGTH_SHORT).show()
             } else {
                 noPathsTextView.visibility = TextView.VISIBLE
                 pathsRecyclerView.visibility = RecyclerView.GONE

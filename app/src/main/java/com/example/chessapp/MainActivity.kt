@@ -7,11 +7,13 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import com.example.chessapp.databinding.ActivityMainBinding
 import com.example.chessapp.homescreen.viewmodels.HomeViewModel
+import com.example.chessapp.homescreen.viewmodels.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
 
     // Get the HomeViewModel instance
     val homeViewModel: HomeViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
