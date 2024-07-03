@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="blue">#89CFF0</color>
+    <color name="yellow">#FFFF8F</color>
+
     <color name="fire_hydrant">#ff0e00</color>
     <color name="venetian_red">#2a0200</color>
     <color name="rosewood">#550500</color>
